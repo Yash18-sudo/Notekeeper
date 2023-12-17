@@ -32,8 +32,8 @@ npm i @hello-pangea/dnd
 
 ## Demo
 You can see a live demo of the project
-```
-[https://exquisite-gaufre-f75701.netlify.app/](https://exquisite-gaufre-f75701.netlify.app/)
-```
+
+<a href="https://exquisite-gaufre-f75701.netlify.app/">Click Here</a>
+
 
 
