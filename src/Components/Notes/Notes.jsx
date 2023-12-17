@@ -1,21 +1,15 @@
 import React, { useContext, useState } from 'react';
-
 import Form from './Form';
 import Note from './Note';
-
 import { DataContext } from '../../Context/DataProvider';
-
 import { Box, Typography, Container, Grid, Button } from '@mui/material';
-
 import { LightbulbOutlined } from '@mui/icons-material';
-
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
   return result;
 };
 
@@ -26,7 +20,6 @@ const Notes = () => {
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
-
     const items = reorder(notes, result.source.index, result.destination.index);
     setNotes(items);
   };

@@ -1,16 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
-
-import {
-    Box,
-    Container as MuiContainer,
-    ClickAwayListener,
-    TextField
-} from '@mui/material';
-
+import { Box, Container as MuiContainer, ClickAwayListener, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
 import { v4 as uuid } from 'uuid';
-
 import { DataContext } from '../../Context/DataProvider';
 
 const Container = styled(Box)`
@@ -28,16 +19,14 @@ const Container = styled(Box)`
 const note = {
     id: '',
     title: '',
-    text: '',
+    tagline: '',
+    body: '',
 }
 
 const Form = () => {
-
     const [showTextField, setShowTextField] = useState(false);
     const [addNote, setAddNote] = useState({ ...note, id: uuid() });
-
     const { setNotes } = useContext(DataContext);
-
     const containerRef = useRef();
 
     const onTextChange = (e) => {
@@ -51,38 +40,44 @@ const Form = () => {
             containerRef.current.style.minHeight = '30px';
 
             setAddNote({ ...note, id: uuid() });
-            if (addNote.title || addNote.text) {
+            if (addNote.title || addNote.tagline || addNote.body) {
                 setNotes(prevArr => [addNote, ...prevArr]);
             }
         }}>
             <MuiContainer maxWidth='sm'>
                 <Container ref={containerRef}>
-                    {
-                        showTextField && (
-                            <TextField
-                                size='small'
-                                placeholder='Title'
-                                variant='standard'
-                                InputProps={{ disableUnderline: true }}
-                                style={{ marginBottom: 10 }}
-                                onChange={(e) => onTextChange(e)}
-                                name='title'
-                                value={addNote.title}
-                            />
-                        )
-                    }
                     <TextField
-                        multiline
-                        placeholder='Take a note...'
+                        size='small'
+                        placeholder='Title'
                         variant='standard'
                         InputProps={{ disableUnderline: true }}
+                        style={{ marginBottom: 10 }}
                         onClick={() => {
                             setShowTextField(true);
-                            containerRef.current.style.minHeight = '70px';
+                            containerRef.current.style.minHeight = '120px';
                         }}
                         onChange={(e) => onTextChange(e)}
-                        name='text'
-                        value={addNote.text}
+                        name='title'
+                        value={addNote.title}
+                    />
+                    <TextField
+                        size='small'
+                        placeholder='Tagline'
+                        variant='standard'
+                        InputProps={{ disableUnderline: true }}
+                        style={{ marginBottom: 10 }}
+                        onChange={(e) => onTextChange(e)}
+                        name='tagline'
+                        value={addNote.tagline}
+                    />
+                    <TextField
+                        multiline
+                        placeholder='Body'
+                        variant='standard'
+                        InputProps={{ disableUnderline: true }}
+                        onChange={(e) => onTextChange(e)}
+                        name='body'
+                        value={addNote.body}
                     />
                 </Container>
             </MuiContainer>
